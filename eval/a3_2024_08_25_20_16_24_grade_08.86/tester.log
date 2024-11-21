@@ -1,0 +1,252 @@
+[1;35mTesting ping...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'PING'
+[TESTER] received string 'PING'
+[TESTER] received string 'PONG'
+[TESTER] received number 23302
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting shm1...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting shm_write...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'WRITE_TO_SHM'
+[TESTER] sending number 17834
+[TESTER] sending number 1327924
+[TESTER] received string 'WRITE_TO_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'WRITE_TO_SHM'
+[TESTER] sending number 4724617
+[TESTER] sending number 305419896
+[TESTER] received string 'WRITE_TO_SHM'
+[TESTER] received string 'ERROR'
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting map_inexistent...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/mg1HKBrGz5y9.aVu'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'ERROR'
+[TESTER] sending string 'EXIT'
+Test score: 5 / 5
+[1;35mTesting map1...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/2AdYOjyPJt.Zu5'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'EXIT'
+Test score: 5 / 5
+[1;35mTesting read_offset...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/2AdYOjyPJt.Zu5'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_FILE_OFFSET'
+[TESTER] sending number 44113
+[TESTER] sending number 50
+[TESTER] received string 'READ_FROM_FILE_OFFSET'
+[TESTER] received string 'ERROR'
+[TESTER] sending string 'READ_FROM_FILE_OFFSET'
+[TESTER] sending number 22056
+[TESTER] sending number 50
+[TESTER] received string 'READ_FROM_FILE_OFFSET'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting read_section...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/VwbCc1xjHe.arA'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_FILE_SECTION'
+[TESTER] sending number 10
+[TESTER] sending number 0
+[TESTER] sending number 100
+[TESTER] received string 'READ_FROM_FILE_SECTION'
+[TESTER] received string 'ERROR'
+[TESTER] sending string 'READ_FROM_FILE_SECTION'
+[TESTER] sending number 3
+[TESTER] sending number 302
+[TESTER] sending number 470
+[TESTER] received string 'READ_FROM_FILE_SECTION'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_FILE_SECTION'
+[TESTER] sending number 6
+[TESTER] sending number 310
+[TESTER] sending number 343
+[TESTER] received string 'READ_FROM_FILE_SECTION'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_FILE_SECTION'
+[TESTER] sending number 7
+[TESTER] sending number 1598
+[TESTER] sending number 2475
+[TESTER] received string 'READ_FROM_FILE_SECTION'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting read_logical...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/jcmPdIufD3.q3l'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_LOGICAL_SPACE_OFFSET'
+[TESTER] sending number 17475
+[TESTER] sending number 3350
+[TESTER] sending string 'EXIT'
+Test score: 2 / 10
+
+Total score: 62 / 70
+Assignment grade: 88.57 / 100
+[1;35mTesting ping...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'PING'
+[TESTER] received string 'PING'
+[TESTER] received string 'PONG'
+[TESTER] received number 23302
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting shm1...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting shm_write...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'WRITE_TO_SHM'
+[TESTER] sending number 17834
+[TESTER] sending number 1327924
+[TESTER] received string 'WRITE_TO_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'WRITE_TO_SHM'
+[TESTER] sending number 4724617
+[TESTER] sending number 305419896
+[TESTER] received string 'WRITE_TO_SHM'
+[TESTER] received string 'ERROR'
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting map_inexistent...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/mg1HKBrGz5y9.aVu'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'ERROR'
+[TESTER] sending string 'EXIT'
+Test score: 5 / 5
+[1;35mTesting map1...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/2AdYOjyPJt.Zu5'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'EXIT'
+Test score: 5 / 5
+[1;35mTesting read_offset...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/2AdYOjyPJt.Zu5'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_FILE_OFFSET'
+[TESTER] sending number 44113
+[TESTER] sending number 50
+[TESTER] received string 'READ_FROM_FILE_OFFSET'
+[TESTER] received string 'ERROR'
+[TESTER] sending string 'READ_FROM_FILE_OFFSET'
+[TESTER] sending number 22056
+[TESTER] sending number 50
+[TESTER] received string 'READ_FROM_FILE_OFFSET'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting read_section...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/VwbCc1xjHe.arA'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_FILE_SECTION'
+[TESTER] sending number 10
+[TESTER] sending number 0
+[TESTER] sending number 100
+[TESTER] received string 'READ_FROM_FILE_SECTION'
+[TESTER] received string 'ERROR'
+[TESTER] sending string 'READ_FROM_FILE_SECTION'
+[TESTER] sending number 3
+[TESTER] sending number 302
+[TESTER] sending number 470
+[TESTER] received string 'READ_FROM_FILE_SECTION'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_FILE_SECTION'
+[TESTER] sending number 6
+[TESTER] sending number 310
+[TESTER] sending number 343
+[TESTER] received string 'READ_FROM_FILE_SECTION'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_FILE_SECTION'
+[TESTER] sending number 7
+[TESTER] sending number 1598
+[TESTER] sending number 2475
+[TESTER] received string 'READ_FROM_FILE_SECTION'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'EXIT'
+Test score: 10 / 10
+[1;35mTesting read_logical...[0m
+[TESTER] received string 'START'
+[TESTER] sending string 'CREATE_SHM'
+[TESTER] sending number 4724619
+[TESTER] received string 'CREATE_SHM'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'MAP_FILE'
+[TESTER] sending string 'test_root/jcmPdIufD3.q3l'
+[TESTER] received string 'MAP_FILE'
+[TESTER] received string 'SUCCESS'
+[TESTER] sending string 'READ_FROM_LOGICAL_SPACE_OFFSET'
+[TESTER] sending number 17475
+[TESTER] sending number 3350
+[TESTER] sending string 'EXIT'
+Test score: 2 / 10
+
+Total score: 62 / 70
+Assignment grade: 88.57 / 100

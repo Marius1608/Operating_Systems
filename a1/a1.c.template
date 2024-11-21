@@ -1,0 +1,166 @@
+#include <stdio.h>
+#include <string.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+#define MAX_PATH_LENGTH 1024
+#define MAX_SECTIONS 16
+
+typedef struct __attribute__((packed)) {
+    char name[11];
+    unsigned short type;
+    unsigned int offset;
+    unsigned int size;
+} SectionHeader;
+
+void list_directory(const char *path, int recursive, const char *filter_name_ends_with, int filter_size_greater) {
+    DIR *dir;
+    struct dirent *entry;
+    struct stat statbuf;
+    char new_path[MAX_PATH_LENGTH];
+
+    if ((dir = opendir(path)) == NULL) {
+        perror("ERROR");
+        return;
+    }
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
+            snprintf(new_path, sizeof(new_path), "%s/%s", path, entry->d_name);
+            if (lstat(new_path, &statbuf) == 0) {
+                if (S_ISDIR(statbuf.st_mode)) {
+                    printf("%s\n", new_path);
+                    if (recursive) {
+                        list_directory(new_path, recursive, filter_name_ends_with, filter_size_greater);
+                    }
+                } else if (S_ISREG(statbuf.st_mode)) {
+                    if (filter_size_greater == 0 || statbuf.st_size > filter_size_greater) {
+                        if (filter_name_ends_with == NULL || strstr(entry->d_name, filter_name_ends_with) != NULL) {
+                            printf("%s/%s\n", path, entry->d_name);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    closedir(dir);
+}
+
+int validate_sf_format(int fd) {
+
+    unsigned char magic;
+    unsigned short header_size;
+    unsigned short version;
+    unsigned char nr_sections;
+
+    if (read(fd, &magic, sizeof(unsigned char)) == -1 ||
+        read(fd, &header_size, sizeof(unsigned short)) == -1 ||
+        read(fd, &version, sizeof(unsigned short)) == -1 ||
+        read(fd, &nr_sections, sizeof(unsigned char)) == -1) {
+        printf("ERROR\nfailed to read file\n");
+        return 0;
+    }
+
+    if (magic != '9') {
+        printf("ERROR\nwrong magic\n");
+        return 0;
+    }
+
+    if (version < 96 || version > 195) {
+        printf("ERROR\nwrong version\n");
+        return 0;
+    }
+
+    if (nr_sections != 2 && (nr_sections < 8 || nr_sections > MAX_SECTIONS)) {
+        printf("ERROR\nwrong sect_nr\n");
+        return 0;
+    }
+
+   
+    for (int i = 0; i < nr_sections; i++) {
+        SectionHeader section_header;
+        if (read(fd, &section_header, sizeof(SectionHeader)) == -1) {
+            printf("ERROR\nfailed to read section header\n");
+            return 0;
+        }
+
+        if (section_header.type != 85 && section_header.type != 17 && section_header.type != 89) {
+            printf("ERROR\nwrong sect_types\n");
+            return 0;
+        }
+    }
+
+    
+    printf("SUCCESS\nversion=%hu\nnr_sections=%hhu\n", version, nr_sections);
+    lseek(fd, sizeof(unsigned char) + sizeof(unsigned short) + sizeof(unsigned short)+sizeof(unsigned char), SEEK_SET);
+
+    for (int i = 0; i < nr_sections; i++) {
+        SectionHeader section_header;
+        if (read(fd, &section_header, sizeof(SectionHeader)) == -1) {
+            printf("ERROR\nfailed to read section header\n");
+            return 0;
+        }
+        printf("section%d: %s %hu %u\n", i + 1, section_header.name, section_header.type, section_header.size);
+    }
+
+    return 1;
+}
+
+
+int main(int argc, char **argv) {
+    char *path = NULL;
+    char *path1 = NULL;
+    int filter_size_greater = 0;
+    char *filter_name_ends_with = NULL;
+    int recursive = 0;
+
+    if (argc >= 2 && strcmp(argv[1], "list") == 0) {
+        // Parsarea argumentelor comenzii "list"
+        for (int i = 2; i < argc; i++) {
+            if (strcmp(argv[i], "recursive") == 0) {
+                recursive = 1;
+            } else if (strstr(argv[i], "path=") != NULL && strstr(argv[i], "path=") == argv[i]) {
+                path1 = strchr(argv[i], '=') + 1;
+            } else if (strstr(argv[i], "name ends with=") != NULL) {
+                filter_name_ends_with = strchr(argv[i], '=') + 1;
+            } else if (strstr(argv[i], "size greater=") != NULL) {
+                filter_size_greater = atoi(strchr(argv[i], '=') + 1);
+            }
+        }
+
+        if (path1 != NULL) {
+            printf("SUCCESS\n");
+            list_directory(path1, recursive, filter_name_ends_with, filter_size_greater);
+        } else {
+            printf("ERROR\ninvalid directory path\n");
+        }
+    } else if (argc >= 2 && strcmp(argv[1], "parse") == 0) {
+
+        for (int i = 2; i < argc; i++) {
+            if (strstr(argv[i], "path=") != NULL && strstr(argv[i], "path=") == argv[i]) {
+                path = strchr(argv[i], '=') + 1;
+            }
+        }
+
+        if (path != NULL) {
+            int fd = open(path, O_RDONLY);
+            if (fd != -1) {
+                validate_sf_format(fd);
+                close(fd);
+            } else {
+                printf("ERROR\nunable to open file\n");
+            }
+        } else {
+            printf("ERROR\nmissing file path\n");
+        }
+    } else if (argc >= 2 && strcmp(argv[1], "variant") == 0) {
+        printf("23302\n");
+    } 
+    else {
+        printf("ERROR\ninvalid arguments\n");
+    }
+    return 0;
+}
